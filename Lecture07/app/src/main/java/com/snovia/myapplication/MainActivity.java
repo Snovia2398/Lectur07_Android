@@ -1,5 +1,6 @@
 package com.snovia.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -43,12 +44,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("value",count);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textview = findViewById(R.id.textView2);
         button = findViewById(R.id.button);
         Log.d("ALC","onCreate called");
+        if(savedInstanceState!=null)
+        {
+            count=savedInstanceState.getInt("value");
+            textview.setText(String.valueOf(count));
+        }
     }
 
     public void increaseNumber(View view) {
